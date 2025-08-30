@@ -1,0 +1,22 @@
+name: Production Promote Staging on PR Merge
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  promote-to-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Promote to Production
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: .
+          destination_dir: .
+          keep_files: true
